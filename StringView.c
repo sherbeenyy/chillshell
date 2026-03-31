@@ -4,20 +4,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-/**
- * @brief Converts from a C string to a StringView
- */
+
 StringView sv(const char *cstr)
 {
     return (StringView){
         .start = cstr,
         .count = strlen(cstr)};
 }
-/**
- * @brief chops k characters from the left of the StringView
- * @param sv The StringView to be modified
- * @param k The number of characters to chop
- */
+
 void sv_chop_left(StringView *sv, size_t k)
 {
     if (k > sv->count)
@@ -27,11 +21,7 @@ void sv_chop_left(StringView *sv, size_t k)
     sv->count -= k;
 }
 
-/**
- * @brief chops k characters from the right of the StringView
- * @param sv The StringView to be modified
- * @param k The number of characters to chop
- */
+
 void sv_chop_right(StringView *sv, size_t k)
 {
     if (k > sv->count)
@@ -40,10 +30,7 @@ void sv_chop_right(StringView *sv, size_t k)
     sv->count -= k;
 }
 
-/**
- * @brief trims the spaces from the left and the right of the string.
- * leaving a clean StringView
- */
+
 void sv_trimmer(StringView *sv)
 {
     while (sv->count > 0 && isspace(sv->start[0]))
@@ -56,10 +43,7 @@ void sv_trimmer(StringView *sv)
     }
 }
 
-/**
- * @brief Allocates Tokens array in the heap
- * @param capacity Size of the array (how many tokens can the array hold)
- */
+
 StringView *sv_allocateTokensArray(size_t capacity)
 {
     StringView *tokens = malloc(capacity * sizeof(StringView));
@@ -68,10 +52,7 @@ StringView *sv_allocateTokensArray(size_t capacity)
     return tokens;
 }
 
-/**
- * @brief Tokenize a StringView by spaces
- * @return A pointer to a dynamically allocated tokens array
- */
+
 StringView *sv_Tokenizer(const StringView *sv)
 {
     StringView frame = *sv;
