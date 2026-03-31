@@ -10,7 +10,19 @@
 int main()
 {
 
-    StringView cmd_frame = sv("ls -a");
+    char *input = NULL; 
+    size_t len = 0;     
+
+    printf("> ");
+
+    if (getline(&input, &len, stdin) == -1)
+    {
+        perror("getline failed");
+        free(input);
+        exit(EXIT_FAILURE);
+    }
+
+    StringView cmd_frame = sv(input);
     StringView *tokens = sv_Tokenizer(&cmd_frame);
 
     size_t token_count = 0;
@@ -31,6 +43,7 @@ int main()
     args[token_count] = NULL;
 
     free(tokens);
+    free(input);
 
     // created a child process
     pid_t pid = fork();
@@ -45,7 +58,6 @@ int main()
     {
         printf("%d", getpid());
 
-        printf("\nthe child now will preform the %s command :\n", args[0]);
         execvp(args[0], args);
 
         // if the program reached this place that means the execvp failed
@@ -62,12 +74,12 @@ int main()
         if (WIFEXITED(status))
         {
             int exit_code = WEXITSTATUS(status);
-            printf("Parent: Child exited normally with code: %d\n", exit_code);
+            printf(" Child exited normally with code: %d\n", exit_code);
         }
         else if (WIFSIGNALED(status))
         {
             int signal_num = WTERMSIG(status);
-            printf("Parent: Child was killed by signal: %d\n", signal_num);
+            printf("Child was killed by signal: %d\n", signal_num);
         }
     }
 
