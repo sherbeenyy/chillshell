@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 StringView sv(const char *cstr)
 {
     return (StringView){
@@ -21,7 +20,6 @@ void sv_chop_left(StringView *sv, size_t k)
     sv->count -= k;
 }
 
-
 void sv_chop_right(StringView *sv, size_t k)
 {
     if (k > sv->count)
@@ -29,7 +27,6 @@ void sv_chop_right(StringView *sv, size_t k)
 
     sv->count -= k;
 }
-
 
 void sv_trimmer(StringView *sv)
 {
@@ -43,7 +40,6 @@ void sv_trimmer(StringView *sv)
     }
 }
 
-
 StringView *sv_allocateTokensArray(size_t capacity)
 {
     StringView *tokens = malloc(capacity * sizeof(StringView));
@@ -51,7 +47,6 @@ StringView *sv_allocateTokensArray(size_t capacity)
         return NULL;
     return tokens;
 }
-
 
 StringView *sv_Tokenizer(const StringView *sv)
 {

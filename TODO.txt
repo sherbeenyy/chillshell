@@ -1,0 +1,5 @@
+1. free the allocateString done
+2. empty enter crash done
+3. stdin behaviour done 
+
+1. do some built in fucntions (exit , cd, cd args )
